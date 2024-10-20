@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Article</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Submit an Article</h1>
+        <form method="post" action="{% url 'create' %}">
+            {% csrf_token %}
+            <label for="titre">Title:</label>
+            <input type="text" id="titre" name="titre" required>
+            
+            <label for="contenu">Content:</label>
+            <textarea id="contenu" name="contenu" required></textarea>
+            
+            <label for="datepub">Publication Date:</label>
+            <input type="datetime-local" id="datepub" name="datepub" required>
+            
+            <input type="submit" value="Submit">
+        </form>
+
+        {% if articles %}
+            <h2>Articles:</h2>
+            <div class="cards">
+                {% for article in articles %}
+                    <div class="card">
+                        <h3>{{ article.titre }}</h3>
+                        <p>{{ article.contenu }}</p>
+                        <p>Publication Date: {{ article.date_publication|date:"F j, Y, g:i a" }}</p>
+                        <a href="{% url 'update' article.id %}">Update</a>
+                        <a href="{% url 'delete' article.id %}">Delete</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
