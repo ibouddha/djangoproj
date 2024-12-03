@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_cassandra_engine',
     'Cassandra',
     'rest_framework',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
